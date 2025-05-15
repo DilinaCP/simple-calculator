@@ -1,66 +1,74 @@
 'use client'
 
-import {useState} from "react";
+import { useState } from "react";
 
-export default function Calculator(){
+export default function Calculator() {
+  const [input, setInput] = useState('');
 
-  const [numOne, setNumOne] = useState<number | null >(null);
-  const [numTwo, setNumTwo] = useState<number | null >(null);
-  const [result, setResult] = useState<number | null >(null);
+  const handleOperator = (operator: string) => {
+    setInput((prev) => prev + operator);
+  };
 
-  const addNumbers = () => {
-    if (numOne !== null && numTwo !== null){
-      setResult(numOne + numTwo);
+  const handleClick = (digit: string) => {
+    setInput((prev) => prev + digit);
+  };
+
+  const handleEqual = () => {
+    try {
+      const result = eval(input);
+      setInput(result.toString());
+    } catch {
+      setInput('Error');
     }
   };
 
-  const subtractNumbers = () => {
-    if (numOne !== null && numTwo !== null){
-      setResult( numOne - numTwo);
-    }
-  };
-  const divideNumbers = () => {
-    if (numOne !== null && numTwo !== null){
-      setResult( numOne / numTwo);
-    } else (numOne === 0 )
-    {
-      alert ("Cannot divide by zero");
-    }
-  }
-  const multiply = () => {
-    if (numOne !== null && numTwo !== null){
-      setResult (numOne * numTwo);
-    }
-    }
-
-  const handleNumOneChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const value = e.target.value;
-    setNumOne(Number(value));
-  }
-
-  const handleNumTwoChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const value = e.target.value;
-    setNumTwo(Number(value));
-  }
+  const handleClear = () => setInput('');
 
   return (
-    <>
-    <div>
-      <h1>Calculator</h1>
-
-      <input type="text" value={numOne} onChange={handleNumOneChange} placeholder="Enter number one"/>
-      <input type="text" value={numTwo} onChange={handleNumTwoChange} placeholder="Enter number two"/>
+    <div className="max-w-xs mx-auto p-4">
+      <div>
+        <div className="mb-4 p-5 border rounded text-xl bg-gray-100 text-right">{input}</div>
 
 
-      <button type="button" onClick={addNumbers}> Add </button>
-      <button type="button" onClick={subtractNumbers}> Subtract </button>
-      <button type="button" onClick={multiply}> Multiply </button>
-      <button type="button" onClick={divideNumbers}> Divide </button>
+        <div className="grid grid-cols-3 gap-2 mb-2">
+          {['+', '-', '*', '/'].map((op) => (
+            <button
+              key={op}
+              onClick={() => handleOperator(op)}
+              className="bg-blue-500 text-white py-2 rounded hover:bg-blue-600"
+            >
+              {op}
+            </button>
+          ))}
 
+          {[...'1234567890.'].map((num) => (
+            <button
+              key={num}
+              onClick={() => handleClick(num)}
+              className="bg-blue-500 text-white py-2 rounded hover:bg-blue-600"
+            >
+              {num}
+            </button>
+          ))}
+        </div>
 
-      <div>result : {result}</div>
- 
+        <div className="grid grid-cols-4 gap-2 mb-2">
+          
+          <button
+            onClick={handleEqual}
+            className="bg-blue-500 text-white py-2 rounded hover:bg-blue-600"
+          >
+            =
+          </button>
+          <button
+            onClick={handleClear}
+            className="bg-red-500 text-white py-2 rounded hover:bg-red-600"
+          >
+            AC
+          </button>
+
+        </div>
+      </div>
     </div>
-   </> 
   );
 }
