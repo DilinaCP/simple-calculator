@@ -25,48 +25,99 @@ export default function Calculator() {
   const handleClear = () => setInput('');
 
   return (
-    <div className="max-w-xs mx-auto p-4">
-      <div>
-        <div className="mb-4 p-5 border rounded text-xl bg-gray-100 text-right">{input}</div>
-
-
-        <div className="grid grid-cols-3 gap-2 mb-2">
-          {['+', '-', '*', '/'].map((op) => (
-            <button
-              key={op}
-              onClick={() => handleOperator(op)}
-              className="bg-blue-500 text-white py-2 rounded hover:bg-blue-600"
-            >
-              {op}
-            </button>
-          ))}
-
-          {[...'1234567890.'].map((num) => (
-            <button
-              key={num}
-              onClick={() => handleClick(num)}
-              className="bg-blue-500 text-white py-2 rounded hover:bg-blue-600"
-            >
-              {num}
-            </button>
-          ))}
-        </div>
-
+    <div className="flex items-center justify-center min-h-screen bg-gray-100">
+      <div className="max-w-xs w-full p-6 border border-blue-400 bg-white rounded-lg shadow-lg">
+        <h1 className="text-center text-black mb-4 text-2xl font-bold">Simple Calculator</h1>
+        <div className="mb-4 p-4 border border-blue-300 rounded text-2xl bg-sky-100 text-right font-bold min-h-[48px]">{input}</div>
         <div className="grid grid-cols-4 gap-2 mb-2">
-          
-          <button
-            onClick={handleEqual}
-            className="bg-blue-500 text-white py-2 rounded hover:bg-blue-600"
-          >
-            =
-          </button>
           <button
             onClick={handleClear}
-            className="bg-red-500 text-white py-2 rounded hover:bg-red-600"
+            className="col-span-3 bg-red-500 text-white py-2 rounded hover:bg-red-600 font-bold"
           >
             AC
           </button>
 
+          <button
+            onClick={() => handleOperator('*')}
+            className="bg-yellow-500 text-white py-2 rounded hover:bg-yellow-600 font-bold"
+          >
+            *
+          </button>
+        </div>
+        <div className="grid grid-cols-4 gap-2 mb-2">
+          {[7,8,9].map((num) => (
+            <button
+              key={num}
+              onClick={() => handleClick(num.toString())}
+              className="bg-blue-500 text-white py-2 rounded hover:bg-blue-600 font-bold"
+            >
+              {num}
+            </button>
+          ))}
+          <button
+            onClick={() => handleOperator('-')}
+            className="bg-yellow-500 text-white py-2 rounded hover:bg-yellow-600 font-bold"
+          >
+            -
+          </button>
+        </div>
+        <div className="grid grid-cols-4 gap-2 mb-2">
+          {[4,5,6].map((num) => (
+            <button
+              key={num}
+              onClick={() => handleClick(num.toString())}
+              className="bg-blue-500 text-white py-2 rounded hover:bg-blue-600 font-bold"
+            >
+              {num}
+            </button>
+          ))}
+          <button
+            onClick={() => handleOperator('+')}
+            className="bg-yellow-500 text-white py-2 rounded hover:bg-yellow-600 font-bold"
+          >
+            +
+          </button>
+        </div>
+        
+        <div className="grid grid-cols-4 gap-2">
+          {[1,2,3].map((num) => (
+            <button
+              key={num}
+              onClick={() => handleClick(num.toString())}
+              className="bg-blue-500 text-white py-2 rounded hover:bg-blue-600 font-bold"
+            >
+              {num}
+            </button>
+          ))}
+
+          <button
+            onClick={() => handleOperator('/')}
+            className="bg-yellow-500 text-white py-2 rounded hover:bg-yellow-600 font-bold"
+          >
+            /
+          </button>
+        </div>
+
+        <div className="grid grid-cols-4 gap-2 mt-2">
+          <button
+            onClick={() => handleClick('0')}
+            className="col-span-2 bg-blue-500 text-white py-2 rounded hover:bg-blue-600 font-bold"
+          >
+            0
+          </button>
+          <button
+            onClick={() => handleClick('.')}
+            className="bg-blue-500 text-white py-2 rounded hover:bg-blue-600 font-bold"
+          >
+            .
+          </button>
+
+          <button
+            onClick={handleEqual}
+            className=" bg-green-500 text-white py-2 rounded hover:bg-green-600 font-bold"
+          >
+            =
+          </button>
         </div>
       </div>
     </div>
